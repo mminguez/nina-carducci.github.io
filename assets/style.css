@@ -67,9 +67,9 @@ body {
 	z-index: 0;
 }
 
-.picture img {
+.picture img, .custom-carousel {
 	width: 100%;
-
+	height: auto;
 }
 #about-me {
 	flex: 2
