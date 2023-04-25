@@ -116,13 +116,13 @@
     openLightBox(element, lightboxId) {
       $(`#${lightboxId}`)
         .find(".lightboxImage")
-        .attr("src", element.attr("src"));
+        .attr("src", element.data("full-src"));
       $(`#${lightboxId}`).modal("toggle");
     },
     prevImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
+        if ($(this).data("full-src") === $(".lightboxImage").attr("src")) {
           activeImage = $(this);
         }
       });
@@ -131,7 +131,7 @@
       if (activeTag === "all") {
         $(".item-column").each(function() {
           if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
+            imagesCollection.push($(this).children("img").data("full-src"));
           }
         });
       } else {
@@ -141,7 +141,7 @@
               .children("img")
               .data("gallery-tag") === activeTag
           ) {
-            imagesCollection.push($(this).children("img"));
+            imagesCollection.push($(this).children("img").data("full-src"));
           }
         });
       }
@@ -149,7 +149,7 @@
         prev = null;
 
       $(imagesCollection).each(function(i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
+        if ($(activeImage).data("full-src") === imagesCollection[i]) {
           index = i ;
         }
       });
@@ -157,12 +157,12 @@
       prev =
         imagesCollection[index] ||
         imagesCollection[imagesCollection.length - 1];
-      $(".lightboxImage").attr("src", $(prev).attr("src"));
+      $(".lightboxImage").attr("src", prev);
     },
     nextImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
+        if ($(this).data("full-src") === $(".lightboxImage").attr("src")) {
           activeImage = $(this);
         }
       });
@@ -171,7 +171,7 @@
       if (activeTag === "all") {
         $(".item-column").each(function() {
           if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
+            imagesCollection.push($(this).children("img").data("full-src"));
           }
         });
       } else {
@@ -181,7 +181,7 @@
               .children("img")
               .data("gallery-tag") === activeTag
           ) {
-            imagesCollection.push($(this).children("img"));
+            imagesCollection.push($(this).children("img").data("full-src"));
           }
         });
       }
@@ -189,13 +189,13 @@
         next = null;
 
       $(imagesCollection).each(function(i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
+        if ($(activeImage).data("full-src") === imagesCollection[i]) {
           index = i;
         }
       });
       index = index === imagesCollection.length - 1 ? 0 : index + 1;
       next = imagesCollection[index] || imagesCollection[0];
-      $(".lightboxImage").attr("src", $(next).attr("src"));
+      $(".lightboxImage").attr("src", next);
     },
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
